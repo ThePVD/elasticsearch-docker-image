@@ -6,7 +6,15 @@ sysctl -w vm.max_map_count=262144
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "coreos-alpha"
+  config.vm.box = "centos/8"
+
+  # Install Docker
+  config.vm.provision :docker
+
+  # Install Docker Compose
+  # First, install required plugin https://github.com/leighmcculloch/vagrant-docker-compose:
+  # vagrant plugin install vagrant-docker-compose
+  config.vm.provision :docker_compose
 
   config.vm.provider "virtualbox" do |vb|
      vb.memory = "1024"
